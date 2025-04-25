@@ -37,26 +37,22 @@ const languages: Language[] = [
 ];
 
 const Translator: React.FC = () => {
-  const [sourceLanguage, setSourceLanguage] = useState<string>('en');
-  const [targetLanguage, setTargetLanguage] = useState<string>('es');
-  const [inputText, setInputText] = useState<string>('');
-  const [translatedText, setTranslatedText] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const handleSourceLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log('Source language changed to:', e.target.value);
-    setSourceLanguage(e.target.value);
-  };
-
-  const handleTargetLanguageChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log('Target language changed to:', e.target.value);
-    setTargetLanguage(e.target.value);
-  };
+  const [sourceText, setSourceText] = useState('');
+  const [translatedText, setTranslatedText] = useState('');
+  const [sourceLanguage, setSourceLanguage] = useState('en');
+  const [targetLanguage, setTargetLanguage] = useState('es');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleTranslate = async () => {
-    if (!inputText.trim()) return;
-    
+    if (!sourceText.trim()) {
+      setError('Please enter text to translate');
+      return;
+    }
+
     setIsLoading(true);
+    setError(null);
+
     try {
       const response = await fetch('http://localhost:3000/api/translate', {
         method: 'POST',
@@ -64,17 +60,21 @@ const Translator: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          text: inputText,
+          text: sourceText,
           sourceLanguage,
           targetLanguage,
         }),
       });
 
+      if (!response.ok) {
+        throw new Error('Translation failed');
+      }
+
       const data = await response.json();
       setTranslatedText(data.translatedText);
-    } catch (error) {
-      console.error('Translation error:', error);
-      setTranslatedText('Error occurred during translation');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+      setTranslatedText('');
     } finally {
       setIsLoading(false);
     }
@@ -82,15 +82,15 @@ const Translator: React.FC = () => {
 
   return (
     <div className="translator-container">
-      <h1>Language Translator</h1>
+      <h1 className="translator-heading">Language Translator</h1>
       
       <div className="language-selectors">
-        <div className="language-select">
+        <div className="language-selector">
           <label htmlFor="sourceLanguage">From:</label>
           <select
             id="sourceLanguage"
             value={sourceLanguage}
-            onChange={handleSourceLanguageChange}
+            onChange={(e) => setSourceLanguage(e.target.value)}
           >
             {languages.map((lang) => (
               <option key={lang.code} value={lang.code}>
@@ -100,12 +100,12 @@ const Translator: React.FC = () => {
           </select>
         </div>
 
-        <div className="language-select">
+        <div className="language-selector">
           <label htmlFor="targetLanguage">To:</label>
           <select
             id="targetLanguage"
             value={targetLanguage}
-            onChange={handleTargetLanguageChange}
+            onChange={(e) => setTargetLanguage(e.target.value)}
           >
             {languages.map((lang) => (
               <option key={lang.code} value={lang.code}>
@@ -117,16 +117,20 @@ const Translator: React.FC = () => {
       </div>
 
       <div className="translation-boxes">
-        <div className="text-box">
+        <div className="translation-box">
+          <label htmlFor="sourceText">Enter text:</label>
           <textarea
-            value={inputText}
-            onChange={(e) => setInputText(e.target.value)}
-            placeholder="Enter text to translate..."
+            id="sourceText"
+            value={sourceText}
+            onChange={(e) => setSourceText(e.target.value)}
+            placeholder="Type or paste text here..."
           />
         </div>
 
-        <div className="text-box">
+        <div className="translation-box">
+          <label htmlFor="translatedText">Translation:</label>
           <textarea
+            id="translatedText"
             value={translatedText}
             readOnly
             placeholder="Translation will appear here..."
@@ -134,10 +138,12 @@ const Translator: React.FC = () => {
         </div>
       </div>
 
-      <button 
+      {error && <div className="error-message">{error}</div>}
+
+      <button
         className="translate-button"
         onClick={handleTranslate}
-        disabled={isLoading || !inputText.trim()}
+        disabled={isLoading || !sourceText.trim()}
       >
         {isLoading ? 'Translating...' : 'Translate'}
       </button>
