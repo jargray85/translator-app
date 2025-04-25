@@ -95,22 +95,41 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
-.translate-button {
+.button-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.translate-button, .reset-button {
   padding: 1rem 2rem;
   font-size: 1.1rem;
-  background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.2s;
 }
 
+.translate-button {
+  background-color: #007bff;
+  color: white;
+}
+
 .translate-button:hover {
   background-color: #0056b3;
 }
 
-.translate-button:disabled {
+.reset-button {
+  background-color: #6c757d;
+  color: white;
+}
+
+.reset-button:hover {
+  background-color: #5a6268;
+}
+
+.translate-button:disabled, .reset-button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
@@ -184,6 +203,10 @@
 
   .translation-box textarea {
     min-height: 150px;
+  }
+
+  .button-group {
+    flex-direction: column;
   }
 
   .app-language-selector {

@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "Tradutor",
+    "description": "Traduzir texto entre diferentes idiomas",
+    "language": "Idioma do aplicativo"
+  },
+  "translator": {
+    "from": "De",
+    "to": "Para",
+    "enterText": "Digite o texto",
+    "translation": "Tradução",
+    "translate": "Traduzir",
+    "translating": "Traduzindo...",
+    "reset": "Limpar",
+    "error": {
+      "emptyText": "Por favor, digite o texto para traduzir",
+      "translationFailed": "Falha na tradução",
+      "generic": "Ocorreu um erro"
+    }
+  },
+  "languages": {
+    "en": "Inglês",
+    "es": "Espanhol",
+    "fr": "Francês",
+    "de": "Alemão",
+    "it": "Italiano",
+    "pt": "Português",
+    "ru": "Russo",
+    "ja": "Japonês",
+    "ko": "Coreano",
+    "zh": "Chinês",
+    "th": "Tailandês"
+  }
+} 

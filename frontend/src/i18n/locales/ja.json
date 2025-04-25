@@ -1,0 +1,34 @@
+{
+  "app": {
+    "title": "言語翻訳",
+    "description": "異なる言語間でテキストを翻訳",
+    "language": "アプリの言語"
+  },
+  "translator": {
+    "from": "翻訳元",
+    "to": "翻訳先",
+    "enterText": "テキストを入力",
+    "translation": "翻訳",
+    "translate": "翻訳する",
+    "translating": "翻訳中...",
+    "reset": "リセット",
+    "error": {
+      "emptyText": "翻訳するテキストを入力してください",
+      "translationFailed": "翻訳に失敗しました",
+      "generic": "エラーが発生しました"
+    }
+  },
+  "languages": {
+    "en": "英語",
+    "es": "スペイン語",
+    "fr": "フランス語",
+    "de": "ドイツ語",
+    "it": "イタリア語",
+    "pt": "ポルトガル語",
+    "ru": "ロシア語",
+    "ja": "日本語",
+    "ko": "韓国語",
+    "zh": "中国語",
+    "th": "タイ語"
+  }
+} 

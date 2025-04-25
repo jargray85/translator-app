@@ -11,6 +11,7 @@
     "translation": "Traducción",
     "translate": "Traducir",
     "translating": "Traduciendo...",
+    "reset": "Limpiar",
     "error": {
       "emptyText": "Por favor ingrese texto para traducir",
       "translationFailed": "Error en la traducción",

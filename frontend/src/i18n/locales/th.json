@@ -11,6 +11,7 @@
     "translation": "การแปล",
     "translate": "แปล",
     "translating": "กำลังแปล...",
+    "reset": "ล้าง",
     "error": {
       "emptyText": "กรุณาป้อนข้อความที่ต้องการแปล",
       "translationFailed": "การแปลล้มเหลว",
