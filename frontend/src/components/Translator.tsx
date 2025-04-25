@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './Translator.css';
 
 interface Language {
@@ -6,37 +7,8 @@ interface Language {
   name: string;
 }
 
-const languages: Language[] = [
-  { code: 'en', name: 'English' },
-  { code: 'es', name: 'Spanish' },
-  { code: 'fr', name: 'French' },
-  { code: 'de', name: 'German' },
-  { code: 'it', name: 'Italian' },
-  { code: 'pt', name: 'Portuguese' },
-  { code: 'ru', name: 'Russian' },
-  { code: 'ja', name: 'Japanese' },
-  { code: 'ko', name: 'Korean' },
-  { code: 'zh', name: 'Chinese' },
-  { code: 'th', name: 'Thai' },
-  { code: 'vi', name: 'Vietnamese' },
-  { code: 'id', name: 'Indonesian' },
-  { code: 'ms', name: 'Malay' },
-  { code: 'my', name: 'Burmese' },
-  { code: 'km', name: 'Khmer' },
-  { code: 'lo', name: 'Lao' },
-  { code: 'tl', name: 'Filipino/Tagalog' },
-  { code: 'ga', name: 'Irish (Gaeilge)' },
-  { code: 'cy', name: 'Welsh (Cymraeg)' },
-  { code: 'gd', name: 'Scottish Gaelic' },
-  { code: 'kw', name: 'Cornish' },
-  { code: 'br', name: 'Breton' },
-  { code: 'gv', name: 'Manx' },
-  { code: 'la', name: 'Latin' },
-  { code: 'grc', name: 'Ancient Greek (Ἑλληνική)' },
-  { code: 'el', name: 'Modern Greek (Ελληνικά)' },
-];
-
 const Translator: React.FC = () => {
+  const { t, i18n } = useTranslation();
   const [sourceText, setSourceText] = useState('');
   const [translatedText, setTranslatedText] = useState('');
   const [sourceLanguage, setSourceLanguage] = useState('en');
@@ -44,9 +16,15 @@ const Translator: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Get available languages from translations
+  const languages: Language[] = Object.entries(t('languages', { returnObjects: true })).map(([code, name]) => ({
+    code,
+    name: name as string,
+  }));
+
   const handleTranslate = async () => {
     if (!sourceText.trim()) {
-      setError('Please enter text to translate');
+      setError(t('translator.error.emptyText'));
       return;
     }
 
@@ -67,26 +45,30 @@ const Translator: React.FC = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Translation failed');
+        throw new Error(t('translator.error.translationFailed'));
       }
 
       const data = await response.json();
       setTranslatedText(data.translatedText);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : t('translator.error.generic'));
       setTranslatedText('');
     } finally {
       setIsLoading(false);
     }
   };
 
+  const handleLanguageChange = (newLang: string) => {
+    i18n.changeLanguage(newLang);
+  };
+
   return (
     <div className="translator-container">
-      <h1 className="translator-heading">Language Translator</h1>
+      <h1 className="translator-heading">{t('app.title')}</h1>
       
       <div className="language-selectors">
         <div className="language-selector">
-          <label htmlFor="sourceLanguage">From:</label>
+          <label htmlFor="sourceLanguage">{t('translator.from')}:</label>
           <select
             id="sourceLanguage"
             value={sourceLanguage}
@@ -101,7 +83,7 @@ const Translator: React.FC = () => {
         </div>
 
         <div className="language-selector">
-          <label htmlFor="targetLanguage">To:</label>
+          <label htmlFor="targetLanguage">{t('translator.to')}:</label>
           <select
             id="targetLanguage"
             value={targetLanguage}
@@ -118,22 +100,22 @@ const Translator: React.FC = () => {
 
       <div className="translation-boxes">
         <div className="translation-box">
-          <label htmlFor="sourceText">Enter text:</label>
+          <label htmlFor="sourceText">{t('translator.enterText')}:</label>
           <textarea
             id="sourceText"
             value={sourceText}
             onChange={(e) => setSourceText(e.target.value)}
-            placeholder="Type or paste text here..."
+            placeholder={t('translator.enterText')}
           />
         </div>
 
         <div className="translation-box">
-          <label htmlFor="translatedText">Translation:</label>
+          <label htmlFor="translatedText">{t('translator.translation')}:</label>
           <textarea
             id="translatedText"
             value={translatedText}
             readOnly
-            placeholder="Translation will appear here..."
+            placeholder={t('translator.translation')}
           />
         </div>
       </div>
@@ -145,8 +127,23 @@ const Translator: React.FC = () => {
         onClick={handleTranslate}
         disabled={isLoading || !sourceText.trim()}
       >
-        {isLoading ? 'Translating...' : 'Translate'}
+        {isLoading ? t('translator.translating') : t('translator.translate')}
       </button>
+
+      <div className="app-language-selector">
+        <label htmlFor="appLanguage">{t('app.language')}:</label>
+        <select
+          id="appLanguage"
+          value={i18n.language}
+          onChange={(e) => handleLanguageChange(e.target.value)}
+        >
+          {languages.map((lang) => (
+            <option key={lang.code} value={lang.code}>
+              {lang.name}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

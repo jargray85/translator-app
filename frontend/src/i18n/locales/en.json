@@ -1,0 +1,33 @@
+{
+  "app": {
+    "title": "Language Translator",
+    "description": "Translate text between different languages",
+    "language": "App Language"
+  },
+  "translator": {
+    "from": "From",
+    "to": "To",
+    "enterText": "Enter text",
+    "translation": "Translation",
+    "translate": "Translate",
+    "translating": "Translating...",
+    "error": {
+      "emptyText": "Please enter text to translate",
+      "translationFailed": "Translation failed",
+      "generic": "An error occurred"
+    }
+  },
+  "languages": {
+    "en": "English",
+    "es": "Spanish",
+    "fr": "French",
+    "de": "German",
+    "it": "Italian",
+    "pt": "Portuguese",
+    "ru": "Russian",
+    "ja": "Japanese",
+    "ko": "Korean",
+    "zh": "Chinese",
+    "th": "Thai"
+  }
+} 

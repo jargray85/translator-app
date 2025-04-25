@@ -1,0 +1,33 @@
+{
+  "app": {
+    "title": "Sprachübersetzer",
+    "description": "Text zwischen verschiedenen Sprachen übersetzen",
+    "language": "Anwendungssprache"
+  },
+  "translator": {
+    "from": "Von",
+    "to": "Nach",
+    "enterText": "Text eingeben",
+    "translation": "Übersetzung",
+    "translate": "Übersetzen",
+    "translating": "Übersetzung läuft...",
+    "error": {
+      "emptyText": "Bitte geben Sie Text zum Übersetzen ein",
+      "translationFailed": "Übersetzung fehlgeschlagen",
+      "generic": "Ein Fehler ist aufgetreten"
+    }
+  },
+  "languages": {
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "de": "Deutsch",
+    "it": "Italienisch",
+    "pt": "Portugiesisch",
+    "ru": "Russisch",
+    "ja": "Japanisch",
+    "ko": "Koreanisch",
+    "zh": "Chinesisch",
+    "th": "Thailändisch"
+  }
+} 
