@@ -16,23 +16,22 @@
 
 .language-selectors {
   display: flex;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 20px;
+  position: relative;
 }
 
 .language-selector {
   flex: 1;
-  min-width: 200px;
   max-width: 300px;
+  display: flex;
+  flex-direction: column;
 }
 
 .language-selector label {
-  display: block;
-  margin-bottom: 0.5rem;
-  color: #333;
-  font-weight: 500;
+  margin-bottom: 8px;
 }
 
 .language-selector select {
@@ -180,6 +179,39 @@
   box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
 }
 
+.swap-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+  color: #333;
+  margin: 0 10px;
+  align-self: flex-end;
+  margin-bottom: 8px;
+}
+
+.swap-button:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.1);
+}
+
+.swap-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.swap-button svg {
+  width: 20px;
+  height: 20px;
+}
+
 /* Media query for mobile devices */
 @media (max-width: 768px) {
   .translator-container {
@@ -193,11 +225,11 @@
 
   .language-selectors {
     flex-direction: column;
-    gap: 1rem;
+    gap: 10px;
   }
 
   .language-selector {
-    min-width: 100%;
+    width: 100%;
     max-width: none;
   }
 
@@ -222,6 +254,11 @@
 
   .app-language-selector select {
     width: 100%;
+  }
+
+  .swap-button {
+    margin: 10px auto;
+    align-self: center;
   }
 }
 

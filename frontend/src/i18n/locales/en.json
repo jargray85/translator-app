@@ -12,6 +12,7 @@
     "translate": "Translate",
     "translating": "Translating...",
     "reset": "Reset",
+    "swapLanguages": "Swap languages",
     "error": {
       "emptyText": "Please enter text to translate",
       "translationFailed": "Translation failed",

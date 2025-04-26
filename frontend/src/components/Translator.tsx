@@ -69,6 +69,19 @@ const Translator: React.FC = () => {
     i18n.changeLanguage(newLang);
   };
 
+  const handleSwapLanguages = () => {
+    // Swap the source and target languages
+    const tempLang = sourceLanguage;
+    setSourceLanguage(targetLanguage);
+    setTargetLanguage(tempLang);
+    
+    // Also swap the text if there's any
+    if (sourceText && translatedText) {
+      setSourceText(translatedText);
+      setTranslatedText(sourceText);
+    }
+  };
+
   const handleReset = () => {
     setSourceText('');
     setTranslatedText('');
@@ -94,6 +107,16 @@ const Translator: React.FC = () => {
             ))}
           </select>
         </div>
+
+        <button 
+          className="swap-button" 
+          onClick={handleSwapLanguages}
+          aria-label={t('translator.swapLanguages')}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+            <path d="M7 8l-4 4 4 4M17 8l4 4-4 4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
 
         <div className="language-selector">
           <label htmlFor="targetLanguage">{t('translator.to')}:</label>
