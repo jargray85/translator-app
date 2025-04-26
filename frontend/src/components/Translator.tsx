@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { API_BASE_URL } from '../config';
 import './Translator.css';
 
 interface Language {
@@ -38,7 +39,7 @@ const Translator: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('http://localhost:3000/api/translate', {
+      const response = await fetch(`${API_BASE_URL}/api/translate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
